@@ -14,6 +14,7 @@ class Inline extends \Joswide\Commander\Request{
 		$prevKey = false;
 		
 		foreach($parts as $k => $part){
+			// Indentify command name
 			if ($k == 0){
 				$this->commandName = $part;
 				continue;
@@ -38,18 +39,34 @@ class Inline extends \Joswide\Commander\Request{
 				continue;
 			}
 			
+			
 			$args[] = [
 				'prefix'	=> 'anonimo',
 				'value'		=> $part,
 			];
 		}
 		
+		if ($waitingValue && $prevKey){
+			$args[] = [
+				'prefix'	=> $prevKey,
+				'value'		=> 'empty',
+			];
+		}
+		
+		/*
+		echo "prevKey= $prevKey <br>";
+		echo "waitingValue= $waitingValue <br>";
+		*/
+		
 		$this->arguments = $args;
+			
+	}
+	
+	static public function doFromString($inline){
+		return new self($inline);
 		
 		
-		
-		echo '<pre>'; print_r($this); echo '</pre>';
-		
+		return false;
 	}
 	
 	public function isKey($value){
@@ -59,5 +76,7 @@ class Inline extends \Joswide\Commander\Request{
 	public function getKeyValue($value){
 		return substr($value, 1);
 	}
+	
+	
 	
 }

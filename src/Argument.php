@@ -12,7 +12,8 @@ class Argument{
 	public $noValue;
 	public $castTo;
 	
-	public function __construct($argument){
+	public function __construct($argument)
+	{
 		$this->name 		= $argument['name'] ?? null;
 		$this->prefix		= $argument['prefix'] ?? null;
 		$this->longPrefix	= $argument['longPrefix'] ?? null;
@@ -24,12 +25,14 @@ class Argument{
 		$this->castTo		= $argument['castTo'] ?? null;
 	}
 	
-	public function getName(){
+	public function getName()
+	{
 		return $this->name;
 	}
 	
 	
-	static public function doFromArray($argument){
+	static public function doFromArray($argument)
+	{
 		return new self($argument);
 	}
 	

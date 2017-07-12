@@ -6,14 +6,21 @@ class Arguments{
 	
 	
 	
-	public function addArguments($arguments){
+	public function addArguments($arguments)
+	{
 		foreach($arguments as $argument){
 			$this->addArgument($argument);
 		}
 	}
 	
-	public function addArgument($argument){
-	
+	public function addArgument($argument)
+	{
+		if ($argument instanceof Argument){
+			$this->items[$argument->getName()] = $argument;
+			
+			return true;
+		}
+		
 		if (is_array($argument)){
 			$argumentInstance = Argument::doFromArray($argument);
 			
@@ -23,18 +30,21 @@ class Arguments{
 				return true;
 			}
 		}
-	
+		
+		return false;
 	}
 	
 	
-	public function get($name){
+	public function get($name)
+	{
 		if (!$this->defined($name))
 			return null;
 			
 		return $this->items[$name];
 	}
 	
-	public function defined($name){
+	public function defined($name)
+	{
 		return isset($this->items[$name]);
 	}
 	
